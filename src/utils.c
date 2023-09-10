@@ -20,32 +20,6 @@ void	ft_error(char *msg)
 	exit(-1);
 }
 
-int	ft_execute(char *cmd, char **paths, int fd_in, int fd_out)
-{
-	char	**cmd_parms;
-	char	*cmd_path;
-	int		exec_return;
-	int		pid;
-	int		status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		cmd_parms = ft_split(cmd, ' ');
-		cmd_path = ft_get_fullpath(cmd, paths);
-		dup2(fd_in, STDIN_FILENO);
-		dup2(fd_out, STDOUT_FILENO);
-		exec_return = execve(cmd_path, cmd_parms, NULL);
-		ft_free_subarray(cmd_parms);
-		free(cmd_path);
-		exit(exec_return);
-	}
-	else
-    	if (wait(&status)== -1)
-		perror("wait()error");
-	return (status);
-}
-
 void ft_free_subarray(char **subarray) 
 {
     int i;
@@ -82,30 +56,80 @@ char	**ft_get_path(char **env)
 	return(NULL);
 }
 
-//this function return an executable path with command
+#include <stdio.h>
+//this function return an executable path with command, it should split into two return, command needs file name and command doen't need file name
 char	*ft_get_fullpath(char *cmd, char **path)
 {
 	int		i;
-	char	**cmd_tem;
 	char	*path_tem;
 	char	*exec;
+	char	**split_cmd;
 
 	i = 0;
-	cmd_tem = ft_split(cmd, ' ');
 	while(path && path[i])
 	{
+		split_cmd = ft_split(cmd, ' ');
 		path_tem = ft_strjoin(path[i], "/");
-		exec = ft_strjoin(path_tem, cmd_tem[0]);
+		exec = ft_strjoin(path_tem, split_cmd[0]);
+		free(split_cmd);
 		free(path_tem);
 		if(access(exec, F_OK | X_OK) == 0)
-		{
-			ft_free_subarray(cmd_tem);
 			return(exec);
-		}
 		free(exec);
 		i++;
 	}
-	ft_free_subarray(cmd_tem);
 	perror("Command not found");
 	return(NULL);
+}
+
+// char **cmd_filename(char *cmd, char *infile)
+// {
+// 	char	*infile_parms_tem;
+// 	char	*cmd_tem;
+// 	char	**cmd_parms;
+
+// 	infile_parms_tem = ft_strjoin(" ",infile);
+// 	cmd_tem = ft_strjoin(cmd, infile_parms_tem);
+// 	cmd_parms = ft_split(cmd_tem, ' ');
+// 	free(infile_parms_tem);
+// 	free(cmd_tem);
+// 	return(cmd_parms);
+// }
+
+// int check_execve_parameter(char *cmd_path, char **cmd_parms, char *infile) 
+// {
+// 	int exec_return;
+
+// 	cmd_parms = cmd_filename(cmd_path, infile);
+// 	exec_return = execve(cmd_path, cmd_parms, NULL);
+// 	return(exec_return);
+// }
+
+
+int	ft_execute(char *cmd, char **paths, int fd_in, int fd_out) //send cmd1 and splited environ path here
+{
+	char	**cmd_parms;
+	char	*cmd_path;
+	int		exec_return;
+	int		pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		cmd_parms = ft_split(cmd, ' ') ;//write a function to join file name with space
+		// cmd_parms = cmd_filename(cmd, infile);
+		dup2(fd_in, STDIN_FILENO);
+		dup2(fd_out, STDOUT_FILENO);
+		cmd_path = ft_get_fullpath(cmd, paths); //join to an executable path;
+		// exec_return = check_execve_parameter(cmd_path, cmd_parms, infile);
+		exec_return = execve(cmd_path, cmd_parms, NULL);
+		ft_free_subarray(cmd_parms);
+		free(cmd_path);
+		exit(exec_return);
+	}
+	else
+    	if (wait(&status)== -1)
+		perror("wait()error");
+	return (status);
 }

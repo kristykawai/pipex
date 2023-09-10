@@ -28,6 +28,8 @@
 //own function
 void	ft_error(char *msg);
 void    ft_free_subarray(char **subarray);
+// char 	**cmd_filename(char *cmd, char *infile);
+// int 	check_execve_parameter(char *cmd_path, char **cmd_parms, char *infile);
 char	**ft_get_path(char **env);
 char	*ft_get_fullpath(char *cmd, char **path);
 int	    ft_execute(char *cmd, char **paths, int fd_in, int fd_out);

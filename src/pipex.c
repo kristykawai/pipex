@@ -26,7 +26,7 @@ void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 	if (file_fd[1] == -1) 
 	{
 		perror("Error creating outfile");
-		close(file_fd[0]); //not sure to close here or not, may close the open file in the main pipex
+		close(file_fd[0]);
 		exit(EXIT_FAILURE);
     }
 }
@@ -77,7 +77,7 @@ int	main(int argc, char *argv[], char *env[])
 	}
 	else
 	{
-		paths = ft_get_path(env);
+		paths = ft_get_path(env); //return the path row from env fulllist
 		ft_pipex(argc, argv, paths);
 		ft_free_subarray(paths);
 	}
