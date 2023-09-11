@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
+#include "lib/libft/libft.h"
 
 void	ft_eval_format(t_print *tab, const char *format, int pos)
 {
@@ -27,7 +27,7 @@ void	ft_eval_format(t_print *tab, const char *format, int pos)
 		ft_print_unsignedint(tab);
 	else if (format[pos] == 'x')
 		ft_print_hex(tab, 32);
-	else if (format[pos] == 'X' )
+	else if (format[pos] == 'X')
 		ft_print_hex(tab, 0);
 	else if (format[pos] == '%')
 		ft_print_percentage(tab);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#include "../libft/libft.h"
+#include "../lib/libft/libft.h"
 
 static void	p_itoa_hex(size_t nb)
 {

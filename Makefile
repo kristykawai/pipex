@@ -10,11 +10,12 @@ LIBFT_FUNC		=	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c f
 					ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 					ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 					ft_lstclear.c ft_lstiter.c ft_lstmap.c
+GNL_FUNC		=	get_next_line_bonus.c get_next_line_utils_bonus.c 
 
 SRC_FILES_WITH_PATH = $(addprefix srcs/, $(FT_PRINTF_FUNC))
-LIBFT_FILES_WITH_PATH = $(addprefix libft/, $(LIBFT_FUNC))
-
-OBJ = $(SRC_FILES_WITH_PATH:%.c=%.o) $(LIBFT_FILES_WITH_PATH:%.c=%.o) ft_printf.o
+LIBFT_FILES_WITH_PATH = $(addprefix lib/libft/, $(LIBFT_FUNC))
+GNL_FILES_WITH_PATH = $(addprefix lib/get_next_line/, $(GNL_FUNC))
+OBJ = $(SRC_FILES_WITH_PATH:%.c=%.o) $(LIBFT_FILES_WITH_PATH:%.c=%.o) $(GNL_FILES_WITH_PATH:%.c=%.o) ft_printf.o
 
 all: $(NAME)
 	@echo "$(NAME) completed!"
