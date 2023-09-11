@@ -1,3 +1,3 @@
 #!/bin/sh
-git subtree pull --prefix lib/ft_printf https://github.com/kristykawai/ft_printf.git main --squash
+git subtree pull --prefix lib/libft https://github.com/kristykawai/libft.git main --squash
 git push

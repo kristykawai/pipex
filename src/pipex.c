@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include "../lib/ft_printf/ft_printf.h"
-#include "../lib/ft_printf/libft/libft.h"
+#include "../lib/libft/ft_printf.h"
+#include "../lib/libft/libft.h"
 
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {

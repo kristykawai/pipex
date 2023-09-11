@@ -15,7 +15,7 @@ SRC_PATH		=	$(addprefix $(SRC_DIR), $(SRCS))
 OBJ		=	$(SRC_PATH:.c=.o)
 
 #LIBRARY
-LIBFTPRINTF_PATH = lib/ft_printf
+LIBFTPRINTF_PATH = lib/libft
 LIBFTPRINTF = $(LIBFTPRINTF_PATH)/libftprintf.a
 
 #COMMANDS
@@ -23,7 +23,7 @@ LIBFTPRINTF = $(LIBFTPRINTF_PATH)/libftprintf.a
 				@${CC} ${FLAGS} -c $< -o $@
 
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFTPRINTF_PATH) -lftprintf -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFTPRINTF_PATH) -lft -o $(NAME)
 	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 
