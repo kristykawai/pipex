@@ -13,9 +13,19 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 2
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 256
+# endif
+
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -68,4 +78,29 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
 					void (*del)(void *));
+					
+//  printf function
+typedef struct s_print
+{
+	va_list	args;
+	int		tl;
+}					t_print;
+
+int		ft_printf(const char *format, ...);
+void	ft_print_c(t_print *tab);
+void	ft_print_s(t_print *tab);
+void	ft_print_p(t_print *tab);
+void	ft_print_di(t_print *tab);
+void	ft_print_unsignedint(t_print *tab);
+void	ft_print_hex(t_print *tab, int x);
+void	ft_print_percentage(t_print	*tab);
+
+//  get_next_line function
+char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+
 #endif
