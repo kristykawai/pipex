@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include "../lib/libft/ft_printf.h"
-#include "../lib/libft/libft.h"
+#include "../libft/libft.h"
 
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {
-	file_fd[0] = open(infile, O_WRONLY | O_CREAT, 0644);
+	file_fd[0] = open(infile, O_RDONLY | O_CREAT, 0644);
 	if (file_fd[0] == -1) 
 	{
 		perror("Error opening infile");

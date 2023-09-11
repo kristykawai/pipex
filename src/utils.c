@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include "../lib/libft/ft_printf.h"
-#include "../lib/libft/libft.h"
+#include "../libft/libft.h"
 
 void	ft_error(char *msg)
 {
@@ -82,30 +81,66 @@ char	*ft_get_fullpath(char *cmd, char **path)
 	return(NULL);
 }
 
+int	ft_redirection(int fd_in, int fd_out)
+{
+	int redirect_stdin;
+	int redirect_stdout;
+	int close_fd_in;
+	int close_fd_out;
 
-int	ft_execute(char *cmd, char **paths, int fd_in, int fd_out) //send cmd1 and splited environ path here
+	redirect_stdin = dup2(fd_in, STDIN_FILENO); //stdin file no is now 3 
+	if (redirect_stdin < 0)
+		perror("redirect stdin error");
+	redirect_stdout = dup2(fd_out, STDOUT_FILENO);//stdin file no is now 4	
+	if (redirect_stdout < 0)
+		perror("redirect stdout error");
+	close_fd_in = close(fd_in); 
+	if (close_fd_in < 0)
+		perror("close input file error");
+	close_fd_out = close(fd_out);
+	if (close_fd_out < 0)
+		perror("close output file error");
+	return(0);
+}
+
+int child_process(char *cmd, char **paths, int fd_in, int fd_out)
 {
 	char	**cmd_parms;
 	char	*cmd_path;
 	int		exec_return;
+
+	cmd_parms = ft_split(cmd, ' ') ;//write a function to join file name with space
+	if (!cmd_parms)
+		perror("command parameter error");
+	ft_redirection(fd_in, fd_out);
+	cmd_path = ft_get_fullpath(cmd, paths); //join to an executable path;
+	exec_return = execve(cmd_path, cmd_parms, NULL);
+	if (exec_return == -1)
+		perror("command execution error");
+	ft_free_subarray(cmd_parms);
+	free(cmd_path);
+	exit(exec_return);
+	return(0);
+}
+
+int	ft_execute(char *cmd, char **paths, int fd_in, int fd_out) //send cmd1 and splited environ path here
+{
 	int		pid;
 	int		status;
+	int		child_status;
 
+	status = 0;
 	pid = fork();
+	if(pid == -1)
+		perror("fork error");
 	if (pid == 0)
 	{
-		cmd_parms = ft_split(cmd, ' ') ;//write a function to join file name with space
-		
-		dup2(fd_in, STDIN_FILENO);
-		dup2(fd_out, STDOUT_FILENO);
-		cmd_path = ft_get_fullpath(cmd, paths); //join to an executable path;
-		exec_return = execve(cmd_path, cmd_parms, NULL);
-		ft_free_subarray(cmd_parms);
-		free(cmd_path);
-		exit(exec_return);
+		child_status = child_process(cmd, paths, fd_in, fd_out);
+		if(child_status != 0)
+			perror("child process error");
 	}
 	else
     	if (wait(&status)== -1)
-		perror("wait()error");
+			perror("wait()error");
 	return (status);
 }
