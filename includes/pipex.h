@@ -18,6 +18,7 @@
 # include <stdio.h>
 
 // void	exit_handler(int n_exit); //not sure to addd or not
+int			check_cmd(char **cmd_parms);
 void		ft_error(char *msg);
 void		ft_free_subarray(char **subarray);
 char		**ft_get_path(char **env);
@@ -27,5 +28,4 @@ int			ft_redirection(int fd_in, int fd_out);
 int			child_process(char *cmd, char **paths, int fd_in, int fd_out);
 int			ft_execute(char *cmd, char **paths, int fd_in, int fd_out);
 void		ft_file_initialization(int file_fd[], char *infile, char *outfile);
-static void	ft_pipex(int argc, char *argv[], char **paths);
 #endif

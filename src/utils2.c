@@ -6,7 +6,7 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 11:43:19 by kchan             #+#    #+#             */
-/*   Updated: 2023/09/12 11:49:01 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/12 14:43:37 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,36 @@ int	ft_redirection(int fd_in, int fd_out)
 	return(0);
 }
 
+int check_cmd(char **cmd_parms)
+{
+	if (cmd_parms[0][0] == '/')
+		return(1);
+	return(0);
+}
+	
 int child_process(char *cmd, char **paths, int fd_in, int fd_out)
 {
 	char	**cmd_parms;
 	char	*cmd_path;
 	int		exec_return;
+	// char 	*cmd_parms_tem;
 
 	cmd_parms = ft_split(cmd, ' ') ;//write a function to join file name with space
 	if (!cmd_parms)
 		perror("command parameter error");
 	ft_redirection(fd_in, fd_out);
 	ft_close_fd_in_out(fd_in, fd_out);
-	cmd_path = ft_get_fullpath(cmd, paths); //join to an executable path;
+	if (check_cmd (cmd_parms) == 1)
+		cmd_path = ft_strdup(cmd_parms[0]);
+	else
+		cmd_path = ft_get_fullpath(cmd, paths); //join to an executable path;
+	// if (ft_strchr (cmd_parms[1], '\'')) //do it later
+	// {
+	// 	cmd_parms_tem = NULL;
+	// 	cmd_parms_tem = 
+	// 	*cmd_parms[1] = *cmd_parms_tem;
+	// 	free(cmd_parms_tem);	
+	// }
 	exec_return = execve(cmd_path, cmd_parms, NULL);
 	if (exec_return < 0)
 		perror("could not find program to execute error");
