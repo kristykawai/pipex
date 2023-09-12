@@ -17,22 +17,15 @@
 /*to perror*/
 # include <stdio.h>
 
-// /*utils.c*/
-// int		open_file(char *file, int n);
-// // char	*my_getenv(char *name, char **env);
-// // char	*get_path(char *cmd, char **env);
-// void	exec(char *cmd, char **env);
-// // void	ft_free_tab(char **tab);
-// void	exit_handler(int n_exit);
-
-//own function
-void	ft_error(char *msg);
-void    ft_free_subarray(char **subarray);
-// char 	**cmd_filename(char *cmd, char *infile);
-// int 	check_execve_parameter(char *cmd_path, char **cmd_parms, char *infile);
-char	**ft_get_path(char **env);
-char	*ft_get_fullpath(char *cmd, char **path);
-int	    ft_execute(char *cmd, char **paths, int fd_in, int fd_out);
-void	ft_error(char *str);
-void    ft_file_initialization(int file_fd[], char *infile, char *outfile);
+// void	exit_handler(int n_exit); //not sure to addd or not
+void		ft_error(char *msg);
+void		ft_free_subarray(char **subarray);
+char		**ft_get_path(char **env);
+char		*ft_get_fullpath(char *cmd, char **path);
+int			ft_close_fd_in_out(int fd_in, int fd_out);
+int			ft_redirection(int fd_in, int fd_out);
+int			child_process(char *cmd, char **paths, int fd_in, int fd_out);
+int			ft_execute(char *cmd, char **paths, int fd_in, int fd_out);
+void		ft_file_initialization(int file_fd[], char *infile, char *outfile);
+static void	ft_pipex(int argc, char *argv[], char **paths);
 #endif
