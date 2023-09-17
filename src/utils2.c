@@ -43,7 +43,7 @@ int	ft_redirection(int fd_in, int fd_out)
 
 int	check_cmd(char **cmd_parms)
 {
-	if (cmd_parms[0][0] == '/')
+	if (cmd_parms[0][0] == '/' || cmd_parms[0][0] == '.' || cmd_parms[0][0] == '~')
 		return (1);
 	return (0);
 }

@@ -13,6 +13,34 @@
 #include "../includes/pipex.h"
 #include "../libft/libft.h"
 
+// tbc tmp file
+	// char	*temp_file;
+	// int		temp_file_fd;
+	// int		urandom_fd;
+	// int		bytes_rd;
+	// char	buffer[1024];
+	// temp_file = "tempfileXXXXXX";
+	// temp_file_fd = open(temp_file, O_RDWR | O_CREAT | O_EXCL, 0600);
+	// if (temp_file_fd == -1)
+	// {
+	// 	perror("Failed to create temporary file");
+	// 	exit(EXIT_FAILURE);
+	// }
+	// urandom_fd = open("/dev/urandom", O_RDONLY);
+	// if (urandom_fd < 0)
+	// {
+	// 	perror("Error opening /dev/urandom");
+	// 	close(temp_file_fd);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// bytes_rd = read(urandom_fd, buffer, sizeof(buffer));
+	// if (bytes_rd < 0)
+	// {
+	// 	perror("Error reading from /dev/urandom");
+	// 	close(urandom_fd);
+	// 	exit(EXIT_FAILURE);
+	// }
+
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {
 	file_fd[0] = open(infile, O_RDONLY, 0644);
