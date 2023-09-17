@@ -16,18 +16,18 @@
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {
 	file_fd[0] = open(infile, O_RDONLY, 0644);
-	if (file_fd[0] < 0) 
+	if (file_fd[0] < 0)
 	{
 		perror("Error opening infile");
 		exit(EXIT_FAILURE);
-    }
+	}
 	file_fd[1] = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file_fd[1] < 0) 
+	if (file_fd[1] < 0)
 	{
 		perror("Error creating outfile");
 		close(file_fd[0]);
 		exit(EXIT_FAILURE);
-    }
+	}
 }
 
 static void	ft_pipex(int argc, char *argv[], char **paths)
@@ -63,17 +63,17 @@ int	main(int argc, char *argv[], char *env[])
 {
 	char	**paths;
 
-	if(argc < 5)
+	if (argc < 5)
 	{
-		ft_putstr_fd("Error: Too less arguments. At least one infile, two shell commands and one outfile",2);
+		ft_putstr_fd("Error: Too less arguments.", 2);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		paths = ft_get_path(env); //return the path row from env fulllist
+		paths = ft_get_path(env);
 		ft_pipex(argc, argv, paths);
 		ft_free_subarray(paths);
 	}
 	exit(0);
-	return(0);
+	return (0);
 }

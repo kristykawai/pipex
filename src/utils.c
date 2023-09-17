@@ -19,19 +19,19 @@ void	ft_error(char *msg)
 	exit(-1);
 }
 
-void ft_free_subarray(char **subarray) 
+void	ft_free_subarray(char **subarray)
 {
-    int i;
+	int	i;
 
 	i = 0;
-	if (subarray == NULL) 
-        return ;
-	while(subarray[i]!= 0)
+	if (subarray == NULL)
+		return ;
+	while (subarray[i] != 0)
 	{
-        free(subarray[i]);
+		free(subarray[i]);
 		i++;
-    }
-    free(subarray);
+	}
+	free(subarray);
 }
 
 char	**ft_get_path(char **env)
@@ -41,18 +41,18 @@ char	**ft_get_path(char **env)
 	char	**path;
 
 	ptr = env;
-	while(ptr && *ptr)
+	while (ptr && *ptr)
 	{
-		if(ft_strncmp("PATH=",*ptr, 5) == 0)
+		if (ft_strncmp("PATH=", *ptr, 5) == 0)
 		{
-			ptr_tem = ft_substr(*ptr,5,(ft_strlen(*ptr)-5));
+			ptr_tem = ft_substr(*ptr, 5, (ft_strlen(*ptr) - 5));
 			path = ft_split(ptr_tem, ':');
 			free(ptr_tem);
-			return(path);
+			return (path);
 		}
 		ptr++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 char	*ft_get_fullpath(char *cmd, char **path)
@@ -63,18 +63,18 @@ char	*ft_get_fullpath(char *cmd, char **path)
 	char	**split_cmd;
 
 	i = 0;
-	while(path && path[i])
+	while (path && path[i])
 	{
 		split_cmd = ft_split(cmd, ' ');
 		path_tem = ft_strjoin(path[i], "/");
 		exec = ft_strjoin(path_tem, split_cmd[0]);
 		free(split_cmd);
 		free(path_tem);
-		if(access(exec, F_OK | X_OK) == 0)
-			return(exec);
+		if (access(exec, F_OK | X_OK) == 0)
+			return (exec);
 		free(exec);
 		i++;
 	}
 	perror("Command not found");
-	return(NULL);
+	return (NULL);
 }
