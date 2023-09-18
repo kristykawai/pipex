@@ -6,48 +6,60 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:17:04 by kchan             #+#    #+#             */
-/*   Updated: 2023/09/12 14:43:36 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/18 17:27:20 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 #include "../libft/libft.h"
 
-// tbc tmp file
-	// char	*temp_file;
-	// int		temp_file_fd;
-	// int		urandom_fd;
-	// int		bytes_rd;
-	// char	buffer[1024];
-	// temp_file = "tempfileXXXXXX";
-	// temp_file_fd = open(temp_file, O_RDWR | O_CREAT | O_EXCL, 0600);
-	// if (temp_file_fd == -1)
-	// {
-	// 	perror("Failed to create temporary file");
-	// 	exit(EXIT_FAILURE);
-	// }
-	// urandom_fd = open("/dev/urandom", O_RDONLY);
-	// if (urandom_fd < 0)
-	// {
-	// 	perror("Error opening /dev/urandom");
-	// 	close(temp_file_fd);
-	// 	exit(EXIT_FAILURE);
-	// }
-	// bytes_rd = read(urandom_fd, buffer, sizeof(buffer));
-	// if (bytes_rd < 0)
-	// {
-	// 	perror("Error reading from /dev/urandom");
-	// 	close(urandom_fd);
-	// 	exit(EXIT_FAILURE);
-	// }
+int ft_temp_file(int file_fd_infile)
+{
+	char	*temp_file;
+	int		temp_file_fd;
+	int		bytes_rd;
+	char	buffer[1024];
+
+	temp_file = "/tmp/tempfileXXXXXX";
+	temp_file_fd = open(temp_file, O_RDWR | O_CREAT | O_EXCL | O_TRUNC, 0600);
+	if (temp_file_fd == -1)
+	{
+		perror("Failed to create temporary file");
+		exit(EXIT_FAILURE);
+	}
+	bytes_rd = read(file_fd_infile, buffer, sizeof(buffer));
+	if (bytes_rd < 0)
+	{
+		perror("Error reading from infile");
+		close(file_fd_infile);
+		exit(EXIT_FAILURE);
+	}
+	buffer[bytes_rd] = '\0';
+	ft_putstr_fd(buffer,temp_file_fd);
+	return(temp_file_fd);
+}
 
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {
+	int tem_fd;
+	
+	tem_fd = -1;
 	file_fd[0] = open(infile, O_RDONLY, 0644);
 	if (file_fd[0] < 0)
 	{
 		perror("Error opening infile");
 		exit(EXIT_FAILURE);
+	}
+	if(ft_strncmp(infile, "/dev/urandom", 13) == 0)
+	{
+		tem_fd = ft_temp_file(file_fd[0]);
+		close(file_fd[0]);
+		file_fd[0] = open("/tmp/tempfileXXXXXX", O_RDONLY, 0644);
+		if (file_fd[0] < 0)
+		{
+			perror("Error opening infile");
+			exit(EXIT_FAILURE);
+		}
 	}
 	file_fd[1] = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_fd[1] < 0)
@@ -102,6 +114,7 @@ int	main(int argc, char *argv[], char *env[])
 		ft_pipex(argc, argv, paths);
 		ft_free_subarray(paths);
 	}
+	unlink("/tmp/tempfileXXXXXX");
 	exit(0);
 	return (0);
 }
