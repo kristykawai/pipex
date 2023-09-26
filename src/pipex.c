@@ -6,14 +6,14 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:17:04 by kchan             #+#    #+#             */
-/*   Updated: 2023/09/18 17:27:20 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:12:28 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 #include "../libft/libft.h"
 
-int ft_temp_file(int file_fd_infile)
+int	ft_temp_file(int file_fd_infile)
 {
 	char	*temp_file;
 	int		temp_file_fd;
@@ -35,36 +35,30 @@ int ft_temp_file(int file_fd_infile)
 		exit(EXIT_FAILURE);
 	}
 	buffer[bytes_rd] = '\0';
-	ft_putstr_fd(buffer,temp_file_fd);
-	return(temp_file_fd);
+	ft_putstr_fd (buffer, temp_file_fd);
+	return (temp_file_fd);
 }
 
 void	ft_file_initialization(int file_fd[], char *infile, char *outfile)
 {
-	int tem_fd;
-	
+	int	tem_fd;
+
 	tem_fd = -1;
 	file_fd[0] = open(infile, O_RDONLY, 0644);
 	if (file_fd[0] < 0)
-	{
-		perror("Error opening infile");
-		exit(EXIT_FAILURE);
-	}
-	if(ft_strncmp(infile, "/dev/urandom", 13) == 0)
+		ft_error("Error opening infile");
+	if (ft_strncmp(infile, "/dev/urandom", 13) == 0)
 	{
 		tem_fd = ft_temp_file(file_fd[0]);
 		close(file_fd[0]);
 		file_fd[0] = open("/tmp/tempfileXXXXXX", O_RDONLY, 0644);
 		if (file_fd[0] < 0)
-		{
-			perror("Error opening infile");
-			exit(EXIT_FAILURE);
-		}
+			ft_error("Error opening infile");
 	}
 	file_fd[1] = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_fd[1] < 0)
 	{
-		perror("Error creating outfile");
+		ft_error("Error creating outfile");
 		close(file_fd[0]);
 		exit(EXIT_FAILURE);
 	}

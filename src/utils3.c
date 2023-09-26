@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 10:50:42 by kchan             #+#    #+#             */
-/*   Updated: 2023/09/26 13:16:01 by kchan            ###   ########.fr       */
+/*   Created: 2023/09/26 12:56:33 by kchan             #+#    #+#             */
+/*   Updated: 2023/09/26 13:26:58 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/pipex.h"
+#include "../libft/libft.h"
 
-size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
+int	check_cmd_quotes(char **cmd_parms)
 {
-	size_t	i;
+	int	count;
+	int	i;
 
 	i = 0;
-	if (dstsize == 0)
+	count = 0;
+	while (cmd_parms [1][i] != '\0')
 	{
-		return (ft_strlen(src));
-	}
-	while (i < dstsize -1 && src[i] != '\0')
-	{
-		dst[i] = src[i];
+		if (cmd_parms[1][i] == '\'' || cmd_parms[1][i] == '\"')
+			count++;
 		i++;
 	}
-	dst[i] = '\0';
-	while (src[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
+	return (count);
 }

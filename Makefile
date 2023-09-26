@@ -9,7 +9,7 @@ HEADER_SRCS	=	pipex.h
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-SRCS		=	pipex.c utils.c utils2.c
+SRCS		=	pipex.c utils.c utils2.c utils3.c
 SRC_DIR		=	src/
 SRC_PATH	=	$(addprefix $(SRC_DIR), $(SRCS))
 OBJ			=	$(SRC_PATH:.c=.o)

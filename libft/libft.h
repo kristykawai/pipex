@@ -6,7 +6,7 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:51:46 by kchan             #+#    #+#             */
-/*   Updated: 2023/05/01 16:01:57 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:13:53 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *), \
-					void (*del)(void *));
-					
+					void (*del)(void *));	
 //  printf function
 typedef struct s_print
 {
@@ -86,21 +85,21 @@ typedef struct s_print
 	int		tl;
 }					t_print;
 
-int		ft_printf(const char *format, ...);
-void	ft_print_c(t_print *tab);
-void	ft_print_s(t_print *tab);
-void	ft_print_p(t_print *tab);
-void	ft_print_di(t_print *tab);
-void	ft_print_unsignedint(t_print *tab);
-void	ft_print_hex(t_print *tab, int x);
-void	ft_print_percentage(t_print	*tab);
+int					ft_printf(const char *format, ...);
+void				ft_print_c(t_print *tab);
+void				ft_print_s(t_print *tab);
+void				ft_print_p(t_print *tab);
+void				ft_print_di(t_print *tab);
+void				ft_print_unsignedint(t_print *tab);
+void				ft_print_hex(t_print *tab, int x);
+void				ft_print_percentage(t_print	*tab);
 
 //  get_next_line function
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char				*get_next_line(int fd);
+size_t				ft_strlen(const char *s);
+char				*ft_strchr(const char *s, int c);
+char				*ft_strdup(const char *s);
+char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_strjoin(char const *s1, char const *s2);
 
 #endif

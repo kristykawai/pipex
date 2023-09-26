@@ -6,7 +6,7 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 11:43:19 by kchan             #+#    #+#             */
-/*   Updated: 2023/09/18 16:28:10 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:09:23 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	ft_redirection(int fd_in, int fd_out)
 
 int	check_cmd(char **cmd_parms)
 {
-	if (cmd_parms[0][0] == '/' || cmd_parms[0][0] == '.' || cmd_parms[0][0] == '~')
+	if (cmd_parms[0][0] == '/' || cmd_parms[0][0] == '.'
+	|| cmd_parms[0][0] == '~')
 		return (1);
 	return (0);
 }

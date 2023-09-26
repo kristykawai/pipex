@@ -6,7 +6,7 @@
 /*   By: kchan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 13:45:54 by kchan             #+#    #+#             */
-/*   Updated: 2023/04/04 10:54:43 by kchan            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:16:44 by kchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_len_number(long n)
 }
 
 char	*ft_itoa(int n)
-{	
+{
 	char	*str;
 	size_t	len;
 	long	i;
@@ -44,7 +44,7 @@ char	*ft_itoa(int n)
 	len = ft_len_number(i);
 	str = (char *) malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (NULL);
+		return (0);
 	str[len] = '\0';
 	len = len - 1;
 	if (i == 0)
@@ -59,6 +59,6 @@ char	*ft_itoa(int n)
 		str[len] = '0' + (i % 10);
 		len --;
 		i /= 10;
-	}	
+	}
 	return (str);
 }
