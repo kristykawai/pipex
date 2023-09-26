@@ -22,14 +22,13 @@ LIBFT		= $(LIBFT_PATH)/libft.a
 %.o: %.c $(HEADER) Makefile
 				@${CC} ${FLAGS} -c $< -o $@
 
+all:			$(LIBFT) $(NAME)
+
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -L$(LIBFT_PATH) -lft -o $(NAME)
 	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
-
-all:			libft_all $(NAME)
-
-libft_all:
+$(LIBFT):
 	@$(MAKE) -C libft -f Makefile
 
 clean:
@@ -42,7 +41,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean bonus re
+.PHONY:			all clean fclean re
 
 #COLORS
 RED = \033[1;31m
